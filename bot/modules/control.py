@@ -803,7 +803,11 @@ def the_download(client, message,url):
 
 
     time.sleep(2)
-    match = str(download.followed_by_ids[0])
+    # match = str(download.followed_by_ids[0])
+    if download.followed_by_ids:
+        match = str(download.followed_by_ids[0])
+    else:
+        match = None
     downloads = aria2.get_downloads()
     currdownload = None
     for download in downloads:
