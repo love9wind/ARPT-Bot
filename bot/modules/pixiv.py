@@ -16,6 +16,7 @@ from pyrogram.types import InputMediaPhoto
 import telegraph
 from telegraph import Telegraph
 from modules.control import run_await_rclone
+from pyrogram import enums
 
 session = requests.Session()
 header = {
@@ -71,7 +72,7 @@ async def start_download_pixiv_top(client, call):
     message_id = call.message.id
     message_chat_id = call.message.chat.id
 
-    info = await client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode='Markdown')
+    info = await client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode=enums.ParseMode.MARKDOWN)
     print(info)
 
     img_num = page_num*50
@@ -455,7 +456,7 @@ async def start_download_pixiv_top(client, call):
         os.system("rm '" + name + "'")
         return
     elif "photo" in  str(keywords):
-        await client.send_message(chat_id=message_chat_id, text="开始发送，请等待", parse_mode='Markdown')
+        await client.send_message(chat_id=message_chat_id, text="开始发送，请等待", parse_mode=enums.ParseMode.MARKDOWN)
         try:
             img_list = []
             for root, dirs, files in os.walk(author):
@@ -500,7 +501,7 @@ async def start_download_pixiv_top(client, call):
 
         await client.delete_messages(chat_id=message_chat_id, message_ids=message_id)
         del_path(author)
-        await client.send_message(chat_id=message_chat_id, text="本次发送完成", parse_mode='Markdown')
+        await client.send_message(chat_id=message_chat_id, text="本次发送完成", parse_mode=enums.ParseMode.MARKDOWN)
         return
     elif "tele" in str(keywords):
         img_list = []
@@ -667,7 +668,7 @@ async def pixiv_topillustration(client, message):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_message(text=text, chat_id=message.chat.id,
-                          parse_mode='Markdown', reply_markup=new_reply_markup)
+                          parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
 
     except Exception as e:
         await client.send_message(chat_id=message.chat.id, text=f"获取作者信息失败:\n{e}")
@@ -861,7 +862,7 @@ async def pixiv_topall(client, message):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_message(text=text, chat_id=message.chat.id,
-                          parse_mode='Markdown', reply_markup=new_reply_markup)
+                          parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
 
     except Exception as e:
         await client.send_message(chat_id=message.chat.id, text=f"获取作者信息失败:\n{e}")
@@ -926,7 +927,7 @@ async def author(client, message):
             f.close()
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_photo(caption=author_text[0:1024], photo=img_name, chat_id=message.chat.id,
-                          parse_mode='Markdown', reply_markup=new_reply_markup)
+                          parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
         os.remove(img_name)
     except Exception as e:
         await client.send_message(chat_id=message.chat.id, text=f"获取作者信息失败:\n{e}")
@@ -1040,7 +1041,7 @@ async def start_download_pixiv(client, call):
 
         illusts=html2.json()['body']['illusts']
 
-        info = await client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode='Markdown')
+        info = await client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode=enums.ParseMode.MARKDOWN)
         print(info)
         print(info.chat)
         img_num=len(illusts)

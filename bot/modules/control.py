@@ -18,6 +18,7 @@ import requests
 from pyppeteer import launch
 import copy
 import nest_asyncio
+from pyrogram import enums
 
 nest_asyncio.apply()
 os.system("df -lh")
@@ -73,12 +74,12 @@ async def downloadFiles(client,info,password,originalPath, req, layers, start=1,
         print("正在启动无头浏览器模拟输入密码")
         text="正在启动无头浏览器模拟输入密码   "
         await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
         pheader ,temp_url= asyncio.get_event_loop().run_until_complete(getpassword(originalPath, password))
         print("无头浏览器关闭，正在获取文件列表")
         text = "无头浏览器关闭，正在获取文件列表"
         await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
 
         header['cookie'] = pheader
         print(password)
@@ -240,7 +241,7 @@ async def downloadFiles(client,info,password,originalPath, req, layers, start=1,
                 text = f"推送下载：`{i['FileLeafRef']}`\n下载路径:`{download_path}`\n推送结果:`{c.text}`"
                 try:
                     await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                                   parse_mode='Markdown')
+                                                   parse_mode=enums.ParseMode.MARKDOWN)
                 except Exception as e:
                     print(f"修改信息失败:{e}")
                 time.sleep(0.5)
@@ -255,13 +256,13 @@ async def odshare_download(client, message):
             password=str(message.text).split(" ")[2]
         except:
             password=""
-        info = await client.send_message(chat_id=message.chat.id, text="开始抓取下载链接", parse_mode='Markdown')
+        info = await client.send_message(chat_id=message.chat.id, text="开始抓取下载链接", parse_mode=enums.ParseMode.MARKDOWN)
         fileCount= await downloadFiles(client,info,password,odshare_url, None, 0,start=1, num=-1)
         await client.edit_message_text(text=f"推送至Aria2完成，可到AriaNG面板查看\n本次推送{fileCount}个任务", chat_id=info.chat.id, message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
     except Exception as e:
         print(f"odshare error {e}")
-        await client.send_message(chat_id=message.chat.id, text="抓取下载链接失败", parse_mode='Markdown')
+        await client.send_message(chat_id=message.chat.id, text="抓取下载链接失败", parse_mode=enums.ParseMode.MARKDOWN)
 
 
 async def login_of_share(client,info,link,admin,password):
@@ -279,7 +280,7 @@ async def login_of_share(client,info,link,admin,password):
         await page.type("input[id='i0116']", admin)
         await client.edit_message_text(text=f"已输入账号", chat_id=info.chat.id,
                                        message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
 
         await page.click("#idSIButton9")
         await asyncio.sleep(3)
@@ -292,7 +293,7 @@ async def login_of_share(client,info,link,admin,password):
         await page.click("#idSIButton9")
         await client.edit_message_text(text=f"密码输入完成，正在跳转", chat_id=info.chat.id,
                                        message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
         await asyncio.sleep(3)
 
         # await page.click("input[value='登录']")
@@ -304,7 +305,7 @@ async def login_of_share(client,info,link,admin,password):
         ])
         await client.edit_message_text(text=f"选择保持登录状态", chat_id=info.chat.id,
                                        message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
         await asyncio.sleep(5)
         while not await page.querySelector('.od-ItemContent-title'):
             pass
@@ -338,7 +339,7 @@ async def login_of_share(client,info,link,admin,password):
         return header,url
     except Exception as e:
         print(f"login_of_share {e}")
-        await client.send_message(chat_id=info.chat.id, text=f"login_of_share {e}", parse_mode='Markdown')
+        await client.send_message(chat_id=info.chat.id, text=f"login_of_share {e}", parse_mode=enums.ParseMode.MARKDOWN)
 
 
 async def odpriva_downloadFiles(client,info,admin,password,originalPath, req, layers, start=1, num=-1, _id=0):
@@ -350,7 +351,7 @@ async def odpriva_downloadFiles(client,info,admin,password,originalPath, req, la
             if originalPath=="":
                 await client.edit_message_text(text=f"登录错误", chat_id=info.chat.id,
                                                message_id=info.message_id,
-                                               parse_mode='Markdown')
+                                               parse_mode=enums.ParseMode.MARKDOWN)
                 return
         # print(header)
 
@@ -504,7 +505,7 @@ async def odpriva_downloadFiles(client,info,admin,password,originalPath, req, la
                     text = f"推送下载：`{i['FileLeafRef']}`\n下载路径:`{download_path}`\n推送结果:`{c.text}`"
                     try:
                         await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                                       parse_mode='Markdown')
+                                                       parse_mode=enums.ParseMode.MARKDOWN)
                     except Exception as e:
                         print(f"修改信息失败:{e}")
                     time.sleep(0.5)
@@ -512,7 +513,7 @@ async def odpriva_downloadFiles(client,info,admin,password,originalPath, req, la
         return fileCount
     except Exception as e:
         print(f"odpriva_downloadFiles {e}")
-        await client.send_message(chat_id=info.chat.id, text=f"odpriva_downloadFiles {e}", parse_mode='Markdown')
+        await client.send_message(chat_id=info.chat.id, text=f"odpriva_downloadFiles {e}", parse_mode=enums.ParseMode.MARKDOWN)
 
 
 async def odprivate_download(client, message):
@@ -528,14 +529,14 @@ async def odprivate_download(client, message):
             print(e)
             text="身份信息获取失败\n" \
                  "使用方法为:/odprivate 邮箱 密码 链接"
-            await client.send_message(chat_id=message.chat.id, text=text, parse_mode='Markdown')
-        info = await client.send_message(chat_id=message.chat.id, text="开始抓取下载链接", parse_mode='Markdown')
+            await client.send_message(chat_id=message.chat.id, text=text, parse_mode=enums.ParseMode.MARKDOWN)
+        info = await client.send_message(chat_id=message.chat.id, text="开始抓取下载链接", parse_mode=enums.ParseMode.MARKDOWN)
         fileCount= await odpriva_downloadFiles(client,info,admin,password,odprivate_url, None, 0,start=1, num=-1)
         await client.edit_message_text(text=f"推送至Aria2完成，可到AriaNG面板查看\n本次推送{fileCount}个任务", chat_id=info.chat.id, message_id=info.message_id,
-                                       parse_mode='Markdown')
+                                       parse_mode=enums.ParseMode.MARKDOWN)
     except Exception as e:
         print(f"odprivate error {e}")
-        await client.send_message(chat_id=message.chat.id, text=f"odprivate error {e}", parse_mode='Markdown')
+        await client.send_message(chat_id=message.chat.id, text=f"odprivate error {e}", parse_mode=enums.ParseMode.MARKDOWN)
 
 def run_shell(gid,file_num,file_dir):
     shell = f"bash upload.sh \"{gid}\" \"{file_num}\" '{file_dir}' "
@@ -595,7 +596,7 @@ async def run_await_rclone(dir,title,info,file_num,client, message,gid):
     Upload=os.environ.get('Upload')
 
     rc_url = f"http://root:{Aria2_secret}@127.0.0.1:5572"
-    info = await client.send_message(chat_id=message.chat.id, text="开始上传", parse_mode='Markdown')
+    info = await client.send_message(chat_id=message.chat.id, text="开始上传", parse_mode=enums.ParseMode.MARKDOWN)
     name=f"{str(info.message_id)}_{str(info.chat.id)}"
 
     if int(file_num)==1:
@@ -638,7 +639,7 @@ async def run_await_rclone(dir,title,info,file_num,client, message,gid):
 
                 try:
                     await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                             parse_mode='Markdown')
+                                             parse_mode=enums.ParseMode.MARKDOWN)
 
                 except:
                     continue
@@ -687,7 +688,7 @@ async def run_await_rclone(dir,title,info,file_num,client, message,gid):
 
                 try:
                     await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                             parse_mode='Markdown')
+                                             parse_mode=enums.ParseMode.MARKDOWN)
 
                 except:
                     continue
@@ -736,10 +737,10 @@ def the_download(client, message,url):
         print(e)
         if (str(e).endswith("No URI to download.")):
             print("No link provided!")
-            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode='Markdown')
+            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode=enums.ParseMode.MARKDOWN)
             return None
     prevmessagemag = None
-    info=client.send_message(chat_id=message.chat.id,text="添加任务",parse_mode='Markdown')
+    info=client.send_message(chat_id=message.chat.id,text="添加任务",parse_mode=enums.ParseMode.MARKDOWN)
 
     inline_keyboard = [
         [
@@ -752,7 +753,7 @@ def the_download(client, message,url):
 
     reply_markup = InlineKeyboardMarkup(inline_keyboard=inline_keyboard)
     client.edit_message_text(text="排队中", chat_id=info.chat.id, message_id=info.message_id,
-                             parse_mode='Markdown', reply_markup=reply_markup)
+                             parse_mode=enums.ParseMode.MARKDOWN, reply_markup=reply_markup)
 
 
     temp_text=""
@@ -762,7 +763,7 @@ def the_download(client, message,url):
             print("Downloading metadata")
             if temp_text!="Downloading metadata":
                 try:
-                    client.edit_message_text(text="Downloading metadata",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=reply_markup)
+                    client.edit_message_text(text="Downloading metadata",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=reply_markup)
                     temp_text="Downloading metadata"
                 except:
                     None
@@ -778,7 +779,7 @@ def the_download(client, message,url):
             if prevmessagemag != updateText:
                 print(updateText)
                 try:
-                    client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=reply_markup)
+                    client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=reply_markup)
                     prevmessagemag = updateText
                 except:
                     None
@@ -793,7 +794,7 @@ def the_download(client, message,url):
                     print("Metadata couldn't be downloaded")
                     if temp_text!="Metadata Cancelled/Failed":
                         try:
-                            client.edit_message_text(text="Metadata Cancelled/Failed",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                            client.edit_message_text(text="Metadata Cancelled/Failed",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
                             temp_text="Metadata Cancelled/Failed"
                         except:
                             None
@@ -831,7 +832,7 @@ def the_download(client, message,url):
     new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
     try:
         client.edit_message_text(text="Download complete", chat_id=info.chat.id, message_id=info.message_id,
-                             parse_mode='Markdown', reply_markup=new_reply_markup)
+                             parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
     except Exception as e:
         print(e)
 
@@ -846,7 +847,7 @@ def the_download(client, message,url):
                 print("Magnet Deleted")
                 print("Magnet download was removed")
                 try:
-                    client.edit_message_text(text="Magnet download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                    client.edit_message_text(text="Magnet download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
                 except:
                     None
                 break
@@ -858,7 +859,7 @@ def the_download(client, message,url):
             print("Magnet was cancelled")
             print("Magnet download was cancelled")
             try:
-                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
             except:
                 None
             break
@@ -868,7 +869,7 @@ def the_download(client, message,url):
             currdownload.remove(force=True, files=True)
             print("Magnet failed to resume/download!\nRun /cancel once and try again.")
             try:
-                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
             except:
                 None
             break
@@ -891,7 +892,7 @@ def the_download(client, message,url):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -918,7 +919,7 @@ def the_download(client, message,url):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -1038,7 +1039,7 @@ def run_rclone(dir,title,info,file_num,client, message,gid):
 
                 try:
                     client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                             parse_mode='Markdown')
+                                             parse_mode=enums.ParseMode.MARKDOWN)
 
                 except:
                     continue
@@ -1086,7 +1087,7 @@ def run_rclone(dir,title,info,file_num,client, message,gid):
 
                 try:
                     client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                             parse_mode='Markdown')
+                                             parse_mode=enums.ParseMode.MARKDOWN)
 
                 except:
                     continue
@@ -1150,14 +1151,14 @@ def file_download(client, message,file_dir):
         print("开始下载")
         sys.stdout.flush()
         currdownload = aria2.add_torrent(torrent_file_path=file_dir)
-        info=client.send_message(chat_id=message.chat.id, text="开始下载", parse_mode='Markdown')
+        info=client.send_message(chat_id=message.chat.id, text="开始下载", parse_mode=enums.ParseMode.MARKDOWN)
         print("发送信息")
         sys.stdout.flush()
     except Exception as e:
         print(e)
         if (str(e).endswith("No URI to download.")):
             print("No link provided!")
-            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode='Markdown')
+            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode=enums.ParseMode.MARKDOWN)
 
         return
     new_inline_keyboard=[
@@ -1179,7 +1180,7 @@ def file_download(client, message,file_dir):
 
     new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
     try:
-        client.edit_message_text(text="Download complete",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown' ,reply_markup=new_reply_markup)
+        client.edit_message_text(text="Download complete",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN ,reply_markup=new_reply_markup)
     except:
         None
     prevmessage = None
@@ -1193,7 +1194,7 @@ def file_download(client, message,file_dir):
                 print("Magnet Deleted")
                 print("Magnet download was removed")
                 try:
-                    client.edit_message_text(text="Magnet download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                    client.edit_message_text(text="Magnet download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
                 except:
                     None
                 break
@@ -1204,7 +1205,7 @@ def file_download(client, message,file_dir):
             print("Magnet was cancelled")
             print("Magnet download was cancelled")
             try:
-                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
             except:
                 None
             break
@@ -1214,7 +1215,7 @@ def file_download(client, message,file_dir):
             currdownload.remove(force=True, files=True)
             print("Magnet failed to resume/download!\nRun /cancel once and try again.")
             try:
-                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown' ,reply_markup=new_reply_markup)
+                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN ,reply_markup=new_reply_markup)
             except:
                 None
             break
@@ -1237,7 +1238,7 @@ def file_download(client, message,file_dir):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown' ,reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN ,reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -1264,7 +1265,7 @@ def file_download(client, message,file_dir):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -1296,12 +1297,12 @@ def file_download(client, message,file_dir):
 def http_download(client, message,url):
     try:
         currdownload = aria2.add_uris([url])
-        info = client.send_message(chat_id=message.chat.id, text="添加任务", parse_mode='Markdown')
+        info = client.send_message(chat_id=message.chat.id, text="添加任务", parse_mode=enums.ParseMode.MARKDOWN)
     except Exception as e:
         print(e)
         if (str(e).endswith("No URI to download.")):
             print("No link provided!")
-            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode='Markdown')
+            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode=enums.ParseMode.MARKDOWN)
             return None
     new_inline_keyboard = [
         [
@@ -1322,7 +1323,7 @@ def http_download(client, message,url):
 
     new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
     client.edit_message_text(text="排队中", chat_id=info.chat.id, message_id=info.message_id,
-                             parse_mode='Markdown', reply_markup=new_reply_markup)
+                             parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
 
 
     prevmessage=None
@@ -1335,7 +1336,7 @@ def http_download(client, message,url):
                 print("url Deleted")
                 print("url download was removed")
                 try:
-                    client.edit_message_text(text="url download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                    client.edit_message_text(text="url download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
                 except:
                     None
                 break
@@ -1346,7 +1347,7 @@ def http_download(client, message,url):
             print("url was cancelled")
             print("url download was cancelled")
             try:
-                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
             except:
                 None
             break
@@ -1356,7 +1357,7 @@ def http_download(client, message,url):
             currdownload.remove(force=True, files=True)
             print("url failed to resume/download!.")
             try:
-                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
             except:
                 None
             break
@@ -1378,7 +1379,7 @@ def http_download(client, message,url):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -1404,7 +1405,7 @@ def http_download(client, message,url):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -1510,7 +1511,7 @@ async def temp_telegram_file(client, message,file_list):
             print(media)
             for a in media:
                 if a.document == None and a.video == None:
-                    await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode='Markdown')
+                    await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
                     await temp_telegram_file(client, message,file_list)
                     return file_list
                 else:
@@ -1519,13 +1520,13 @@ async def temp_telegram_file(client, message,file_list):
             return file_list
 
         elif info.text == "/cancel":
-            await client.send_message(text="取消发送", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text="取消发送", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             return []
         elif info.text == "/finish":
-            await client.send_message(text=f"接收文件完成,共有{len(file_list)}个文件", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text=f"接收文件完成,共有{len(file_list)}个文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             return file_list
         elif info.document == None and info.video == None:
-            await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             await temp_telegram_file(client, message,file_list)
             return file_list
 
@@ -1539,7 +1540,7 @@ async def temp_telegram_file(client, message,file_list):
             except Exception as e:
                 print(f"标记1 {e}")
                 sys.stdout.flush()
-                await client.send_message(text="下载文件失败", chat_id=message.chat.id, parse_mode='Markdown')
+                await client.send_message(text="下载文件失败", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
                 return file_list
     except Exception as e:
         print(f"下载文件失败 {e}")
@@ -1573,7 +1574,7 @@ async def send_telegram_file(client, message):
             return
     except Exception as e:
         print(f"start_down_telegram_file {e}")
-        await client.send_message(text=f"下载文件失败:{e}", chat_id=message.chat.id, parse_mode='Markdown')
+        await client.send_message(text=f"下载文件失败:{e}", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
 
         sys.stdout.flush()
 
@@ -1583,12 +1584,12 @@ async def send_telegram_file(client, message):
 def http_downloadtg(client, message,url):
     try:
         currdownload = aria2.add_uris([url])
-        info = client.send_message(chat_id=message.chat.id, text="添加任务", parse_mode='Markdown')
+        info = client.send_message(chat_id=message.chat.id, text="添加任务", parse_mode=enums.ParseMode.MARKDOWN)
     except Exception as e:
         print(e)
         if (str(e).endswith("No URI to download.")):
             print("No link provided!")
-            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode='Markdown')
+            client.send_message(chat_id=message.chat.id,text="No link provided!",parse_mode=enums.ParseMode.MARKDOWN)
             return None
     new_inline_keyboard = [
         [
@@ -1609,7 +1610,7 @@ def http_downloadtg(client, message,url):
 
     new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
     client.edit_message_text(text="排队中", chat_id=info.chat.id, message_id=info.message_id,
-                             parse_mode='Markdown', reply_markup=new_reply_markup)
+                             parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
 
 
     prevmessage=None
@@ -1622,7 +1623,7 @@ def http_downloadtg(client, message,url):
                 print("url Deleted")
                 print("url download was removed")
                 try:
-                    client.edit_message_text(text="url download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                    client.edit_message_text(text="url download was removed",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
                 except:
                     None
                 break
@@ -1633,7 +1634,7 @@ def http_downloadtg(client, message,url):
             print("url was cancelled")
             print("url download was cancelled")
             try:
-                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                client.edit_message_text(text="Magnet download was cancelled",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
             except:
                 None
             break
@@ -1643,7 +1644,7 @@ def http_downloadtg(client, message,url):
             currdownload.remove(force=True, files=True)
             print("url failed to resume/download!.")
             try:
-                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                client.edit_message_text(text="Magnet failed to resume/download!\nRun /cancel once and try again.",chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
             except:
                 None
             break
@@ -1665,7 +1666,7 @@ def http_downloadtg(client, message,url):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None
@@ -1691,7 +1692,7 @@ def http_downloadtg(client, message,url):
                 if prevmessage != updateText:
                     print(f"更新状态\n{updateText}")
                     try:
-                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown', reply_markup=new_reply_markup)
+                        client.edit_message_text(text=updateText,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
                         prevmessage = updateText
                     except:
                         None

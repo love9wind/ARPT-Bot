@@ -1,7 +1,7 @@
 
 import os
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from pyrogram import enums
 import re
 
 from lxml import etree
@@ -48,7 +48,7 @@ async def send_photo(client, message):
 
   new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
   await client.send_photo(caption=f"请选择搜索引擎", photo=message.photo.file_id, chat_id=message.chat.id,
-                    parse_mode='Markdown', reply_markup=new_reply_markup)
+                    parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
 
 
 
@@ -121,7 +121,7 @@ def saucenao(client, message):
 
                 new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
 
-                client.send_photo(chat_id=message.message.chat.id,photo=img,reply_markup=new_reply_markup,parse_mode='Markdown',caption=text)
+                client.send_photo(chat_id=message.message.chat.id,photo=img,reply_markup=new_reply_markup,parse_mode=enums.ParseMode.MARKDOWN,caption=text)
             except Exception as e:
                 print(e)
                 continue
@@ -176,7 +176,7 @@ def ascii2d(client, message):
 
                 #photo_file = session.get(img_url)
                 text=f"titile:[{title}]({title_url})\nauther:[{auther}]({auther_url})"
-                client.send_photo(chat_id=message.message.chat.id, caption=text, parse_mode='Markdown',photo=img_url)
+                client.send_photo(chat_id=message.message.chat.id, caption=text, parse_mode=enums.ParseMode.MARKDOWN,photo=img_url)
             pan = pan + 1
             if pan == 3:
                 break
@@ -223,7 +223,7 @@ def anime(client, message):
                f"[更多信息]({more_url})\n"
         print(text)
         #photo_file = session.get(img_url)
-        client.send_photo(chat_id=message.message.chat.id, photo=img_url, parse_mode='Markdown', caption=text)
+        client.send_photo(chat_id=message.message.chat.id, photo=img_url, parse_mode=enums.ParseMode.MARKDOWN, caption=text)
         #photo_file = session.get(video)
         client.send_video(chat_id=message.message.chat.id,video=video_url)
 
@@ -233,7 +233,7 @@ def anime(client, message):
                 f"您本月的搜索配额:`{me['quota']}`\n" \
                 f"您本月使用的搜索配额:`{me['quotaUsed']}`"
 
-        client.send_message(chat_id=message.message.chat.id, text=me_info,parse_mode='Markdown')
+        client.send_message(chat_id=message.message.chat.id, text=me_info,parse_mode=enums.ParseMode.MARKDOWN)
         os.remove(file)
     except Exception as e:
         print(f"anime faild:{e}")
@@ -276,7 +276,7 @@ def iqdb(client, message):
 
                 text=f"[图片详情]({img_html})"
                 #photo_file = session.get(img_url)
-                client.send_photo(chat_id=message.message.chat.id, photo=img_url, parse_mode='Markdown', caption=text)
+                client.send_photo(chat_id=message.message.chat.id, photo=img_url, parse_mode=enums.ParseMode.MARKDOWN, caption=text)
                 a=a+1
             except:
                 None

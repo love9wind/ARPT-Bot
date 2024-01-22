@@ -14,6 +14,7 @@ import sys
 from modules.control import run_rclone
 from config import App_title
 from pyrogram.types import InlineKeyboardMarkup,InlineKeyboardButton
+from pyrogram import enums
 
 def wake_clock():
     try:
@@ -385,7 +386,7 @@ def add_download(client,call):
                 download_process_text=f"当前下载话:{zhang}\n" \
                                       f"下载进度:{hua_down_num}/{benzihua_num}\n"
 
-                client.edit_message_text(text=download_process_text,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
+                client.edit_message_text(text=download_process_text,chat_id=info.chat.id,message_id=info.message_id,parse_mode=enums.ParseMode.MARKDOWN)
 
                 #该循环下载单话
                 while True:
@@ -477,7 +478,7 @@ def add_downloadtg(client, call):
                                     f"下载进度:{hua_down_num}/{benzihua_num}\n"
 
             client.edit_message_text(text=download_process_text, chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='Markdown')
+                                     parse_mode=enums.ParseMode.MARKDOWN)
 
             # 该循环下载单话
             while True:

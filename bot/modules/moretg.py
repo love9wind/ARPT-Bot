@@ -9,6 +9,7 @@ import re
 from modules.control import run_rclone
 from config import aria2, BOT_name
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import enums
 
 nest_asyncio.apply()
 os.system("df -lh")
@@ -113,7 +114,7 @@ async def start_down_telegram_file(client, message,file_list):
             print(media)
             for a in media:
                 if not a.media:
-                    await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode='Markdown')
+                    await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
                     await start_down_telegram_file(client, message, file_list)
                     return file_list
                 else:
@@ -124,14 +125,14 @@ async def start_down_telegram_file(client, message,file_list):
 
 
         elif info.text == "/cancel":
-            await client.send_message(text="取消发送", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text="取消发送", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
 
             return []
         elif info.text == "/finish":
-            await client.send_message(text=f"接收文件完成,共有{len(file_list)}个文件", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text=f"接收文件完成,共有{len(file_list)}个文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             return file_list
         elif not info.media:
-            await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             file_list = await start_down_telegram_file(client, message,file_list)
             return file_list
 
@@ -158,7 +159,7 @@ async def start_down_telegram_file(client, message,file_list):
             except Exception as e:
                 print(f"标记1 {e}")
                 sys.stdout.flush()
-                await client.send_message(text="下载文件失败", chat_id=message.chat.id, parse_mode='Markdown')
+                await client.send_message(text="下载文件失败", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
                 return file_list
     except Exception as e:
         print(f"start_down_telegram_file {e}")
@@ -182,7 +183,7 @@ async def tgfile_download(client, message, file_list):
         elif new_message.video != None:
 
             file_name = new_message.video.file_name
-        info = await client.send_message(text="开始下载", chat_id=message.chat.id, parse_mode='Markdown')
+        info = await client.send_message(text="开始下载", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
 
         file = await client.download_media(message=new_message, progress=progress, progress_args=(client, info, file_name,))
 
@@ -224,7 +225,7 @@ async def get_telegram_file(client, message):
             return
     except Exception as e:
         print(f"start_down_telegram_file {e}")
-        await client.send_message(text=f"下载文件失败:{e}", chat_id=message.chat.id, parse_mode='Markdown')
+        await client.send_message(text=f"下载文件失败:{e}", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
 
         sys.stdout.flush()
 
@@ -237,23 +238,23 @@ async def get_file_id(client, message):
         print(info)
         sys.stdout.flush()
         if info.text == "/cancel":
-            await client.send_message(text="取消发送", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text="取消发送", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             return
         elif info.document == None:
-            await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode='Markdown')
+            await client.send_message(text="发送的不是文件", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
             return
 
         else:
             try:
                 print(answer)
                 await client.send_message(text=f"获取ID文件成功\nFileid:{answer.document.file_id}", chat_id=message.chat.id,
-                                          parse_mode='Markdown')
+                                          parse_mode=enums.ParseMode.MARKDOWN)
                 return
 
             except Exception as e:
                 print(f"标记2 {e}")
                 sys.stdout.flush()
-                await client.send_message(text="获取ID文件失败", chat_id=message.chat.id, parse_mode='Markdown')
+                await client.send_message(text="获取ID文件失败", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
                 return
     except Exception as e:
         print(f"start_down_telegram_file {e}")
@@ -272,7 +273,7 @@ async def sendfile_by_id(client, message):
 
     except Exception as e:
         print(f"sendfile_by_id :{e}")
-        await client.send_message(text=f"文件发送失败\n{e}", chat_id=message.chat.id, parse_mode='Markdown')
+        await client.send_message(text=f"文件发送失败\n{e}", chat_id=message.chat.id, parse_mode=enums.ParseMode.MARKDOWN)
 
         sys.stdout.flush()
         return

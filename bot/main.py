@@ -4,7 +4,7 @@ import sys
 from modules.check import new_clock, second_clock
 from config import client, Telegram_user_id, aria2,Error_user_info,App_title
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
-from pyrogram import filters
+from pyrogram import filters, enums
 from modules.pixiv import start_download_pixiv, start_download_id, start_download_pixivtg, start_download_pixivphoto, \
     start_download_pixivtele,author,pixiv_topall,start_download_pixiv_top,pixiv_topillustration
 from modules.control import send_telegram_file, start_http_download, start_download, start_http_downloadtg, \
@@ -143,7 +143,7 @@ async def status(client, message):
     else:
         last_time = "%d秒" % s
     text = f"Bot正在运行，已运行时间:`{last_time}`\n磁盘剩余空间:`{get_free_space_mb()}GB`"
-    await client.send_message(chat_id=message.from_user.id, text=text, parse_mode='Markdown')
+    await client.send_message(chat_id=message.from_user.id, text=text, parse_mode=enums.ParseMode.MARKDOWN)
 
 
 def start_bot():

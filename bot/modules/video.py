@@ -8,6 +8,7 @@ import sys
 import requests
 import os
 import time
+from pyrogram import enums
 
 temp_time = time.time()
 
@@ -36,7 +37,7 @@ class Download_video():
                 text = "下载中 " + d['_percent_str'] + " " + d['_speed_str']
                 try:
                     self.client.edit_message_text(text=text, chat_id=self.info.chat.id, message_id=self.info.message_id,
-                                                  parse_mode='Markdown')
+                                                  parse_mode=enums.ParseMode.MARKDOWN)
                 except:
                     None
 
@@ -51,7 +52,7 @@ class Download_video():
             print("开始下载视频")
             sys.stdout.flush()
             message_chat_id = self.call.message.chat.id
-            self.info = self.client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode='Markdown')
+            self.info = self.client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode=enums.ParseMode.MARKDOWN)
             caption = str(self.call.message.caption)
 
             web_url = re.findall("web_url:(.*?)\n", caption, re.S)[0]
@@ -80,7 +81,7 @@ class Download_video():
             return
         self.client.edit_message_text(text=f"{video_name}\n下载完成，开始上传", chat_id=self.info.chat.id,
                                       message_id=self.info.message_id,
-                                      parse_mode='Markdown')
+                                      parse_mode=enums.ParseMode.MARKDOWN)
         if "rclone" in self.call.data:
             print(f"{video_name}上传到网盘")
 
@@ -94,7 +95,7 @@ class Download_video():
                 print(tem, suffix)  # test   .py
                 self.client.edit_message_text(text=f"开始转码", chat_id=self.info.chat.id,
                                               message_id=self.info.message_id,
-                                              parse_mode='Markdown')
+                                              parse_mode=enums.ParseMode.MARKDOWN)
                 audio_name = tem + ".mp3"
                 os.system(f"ffmpeg -i \"{video_name}\" -f mp3 -vn \"{audio_name}\"")
                 run_rclone(f"/{audio_name}", audio_name, info=self.info, file_num=1, client=self.client, message=self.info,gid=0)
@@ -115,7 +116,7 @@ class Download_video():
                 print(tem, suffix)  # test   .py
                 self.client.edit_message_text(text=f"开始转码", chat_id=self.info.chat.id,
                                               message_id=self.info.message_id,
-                                              parse_mode='Markdown')
+                                              parse_mode=enums.ParseMode.MARKDOWN)
                 audio_name = tem + ".mp3"
                 os.system(f"ffmpeg -i \"{video_name}\" -f mp3 -vn \"{audio_name}\"")
                 self.client.send_audio(chat_id=self.call.message.chat.id, audio=f"/{audio_name}", progress=progress,
@@ -158,7 +159,7 @@ def get_video_info(client, message, url):
 
         sys.stdout.flush()
     except Exception as e:
-        client.send_message(chat_id=message.chat.id, text=f"无法获取视频信息:\n{e}", parse_mode='Markdown')
+        client.send_message(chat_id=message.chat.id, text=f"无法获取视频信息:\n{e}", parse_mode=enums.ParseMode.MARKDOWN)
         return
 
     new_inline_keyboard = [
@@ -191,7 +192,7 @@ def get_video_info(client, message, url):
         f.close()
     new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
     client.send_photo(caption=text[0:1024], photo=img_name, chat_id=message.chat.id,
-                      parse_mode='Markdown', reply_markup=new_reply_markup)
+                      parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
     os.remove(img_name)
 
 

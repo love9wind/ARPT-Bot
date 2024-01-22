@@ -11,6 +11,7 @@ import sys
 import requests
 import time
 import os
+from pyrogram import enums
 
 
 def file_del(gid):
@@ -141,13 +142,13 @@ def get_song_url_info(client, call):
 
                 client.edit_message_text(text="此歌曲不支持获取歌曲链接", chat_id=message_chat_id,
                                                    message_id=message_id,
-                                                   parse_mode='Markdown')
+                                                   parse_mode=enums.ParseMode.MARKDOWN)
                 return
             url = song_info.json()['data'][0]['url']
         except Exception as e:
             client.edit_message_text(text=f"无法获取刚获取歌曲链接:\n`{e}`", chat_id=message_chat_id,
                                            message_id=message_id,
-                                           parse_mode='Markdown')
+                                           parse_mode=enums.ParseMode.MARKDOWN)
             return
 
         song_name_info_url=f"https://benchaonetease.vercel.app/song/detail?ids={song_id}"
@@ -163,7 +164,7 @@ def get_song_url_info(client, call):
         picPath = img_name
 
 
-        info = client.send_message(chat_id=call.message.chat.id, text=f"{song_name}开始下载", parse_mode='Markdown')
+        info = client.send_message(chat_id=call.message.chat.id, text=f"{song_name}开始下载", parse_mode=enums.ParseMode.MARKDOWN)
         http_downloadsong(client=client,message=info,url=url,file_name=song_name,picpath=picPath,towhere=call.data)
         os.remove(picPath)
         return
@@ -171,7 +172,7 @@ def get_song_url_info(client, call):
         print(f"get_song_url_info error {e}")
         client.edit_message_text(text=f"get_song_url_info error {e}`", chat_id=message_chat_id,
                                  message_id=message_id,
-                                 parse_mode='Markdown')
+                                 parse_mode=enums.ParseMode.MARKDOWN)
         return
 
 
