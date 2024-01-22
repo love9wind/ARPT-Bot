@@ -36,7 +36,7 @@ RUN sudo apt-get install gcc libffi-dev libssl-dev  -y
 
 # RUN pip3 install -U "pyrogram==2.0" tgcrypto
 #RUN pip3 install pillow
-RUN pip3 install tgcrypto
+RUN pip3 install -U tgcrypto
 RUN pip3 install https://github.com/Dineshkarthik/pyrogram/archive/refs/heads/master.zip
 RUN pip3 install telegraph
 RUN pip3 install aria2p
@@ -70,4 +70,4 @@ RUN chmod 0777 /upload.sh
 
 COPY /start.sh /
 CMD chmod 0777 start.sh && bash start.sh
-CMD wget https://raw.githubusercontent.com/666wcy/ARPT-Bot/main/start.sh -O start.sh && chmod 0777 start.sh && bash start.sh
+CMD wget https://raw.githubusercontent.com/Hiyus/ARPT-Bot/main/start.sh -O start.sh && chmod 0777 start.sh && bash start.sh
