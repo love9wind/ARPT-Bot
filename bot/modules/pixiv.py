@@ -68,7 +68,7 @@ async def start_download_pixiv_top(client, call):
     else:
         the_data=f"&date={rand_data}"
 
-    message_id = call.message.message_id
+    message_id = call.message.id
     message_chat_id = call.message.chat.id
 
     info = await client.send_message(chat_id=message_chat_id, text="开始下载", parse_mode='markdown')
@@ -920,7 +920,7 @@ async def author(client, message):
 
         ]
         img = requests.get(url=author_image,headers=header)
-        img_name = f"{message.chat.id}{message.message_id}.png"
+        img_name = f"{message.chat.id}{message.id}.png"
         with open(img_name, 'wb') as f:
             f.write(img.content)
             f.close()
@@ -1035,7 +1035,7 @@ async def start_download_pixiv(client, call):
         }
         html2 = requests.get(url=idurl, headers=header)
         print(html2)
-        message_id = call.message.message_id
+        message_id = call.message.id
         message_chat_id = call.message.chat.id
 
         illusts=html2.json()['body']['illusts']
@@ -1124,7 +1124,7 @@ def progress(current, total,client,message,name):
     print(f"{current * 100 / total:.1f}%")
     pro=f"{current * 100 / total:.1f}%"
     try:
-        client.edit_message_text(chat_id=message.chat.id,message_id=message.message_id,text=f"{name}\n上传中:{pro}")
+        client.edit_message_text(chat_id=message.chat.id,message_id=message.id,text=f"{name}\n上传中:{pro}")
     except Exception as e:
         print("e")
 
@@ -1141,7 +1141,7 @@ async def start_download_pixivtg(client, call):
     }
     html2 = requests.get(url=idurl, headers=header)
     print(html2)
-    message_id = call.message.message_id
+    message_id = call.message.id
     message_chat_id = call.message.chat.id
 
     illusts = html2.json()['body']['illusts']
@@ -1212,7 +1212,7 @@ async def start_download_pixivphoto(client, call):
     }
     html2 = requests.get(url=idurl, headers=header)
     print(html2)
-    message_id = call.message.message_id
+    message_id = call.message.id
     message_chat_id = call.message.chat.id
 
     illusts = html2.json()['body']['illusts']
@@ -1322,7 +1322,7 @@ async def start_download_pixivtele(client, call):
     }
     html2 = requests.get(url=idurl, headers=header)
     print(html2)
-    message_id = call.message.message_id
+    message_id = call.message.id
     message_chat_id = call.message.chat.id
 
     illusts = html2.json()['body']['illusts']

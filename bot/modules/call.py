@@ -126,7 +126,7 @@ def get_song_url_info(client, call):
 
     try:
         client.answer_callback_query(callback_query_id=call.id, text="开始获取歌曲信息", cache_time=3)
-        message_id = call.message.message_id
+        message_id = call.message.id
         message_chat_id = call.message.chat.id
         song_id = call.data.split()[1]
         t = time.time()

@@ -337,7 +337,7 @@ def progress(current, total,client,message,name):
     print(f"{current * 100 / total:.1f}%")
     pro=f"{current * 100 / total:.1f}%"
     try:
-        client.edit_message_text(chat_id=message.chat.id,message_id=message.message_id,text=f"{name}\n上传中:{pro}")
+        client.edit_message_text(chat_id=message.chat.id,message_id=message.id,text=f"{name}\n上传中:{pro}")
     except Exception as e:
         print("e")
 
@@ -349,7 +349,7 @@ def add_download(client,call):
         comicid = re.findall("book_id:(.*)", caption, re.S)[0]
         title = re.findall("title:(.*?)\n", caption, re.S)[0]
 
-        message_id = call.message.message_id
+        message_id = call.message.id
         message_chat_id = call.message.chat.id
 
         title = title.replace(" ", "").replace("\\", "").replace("/", "").replace("|", "").replace(" ", "")
@@ -442,7 +442,7 @@ def add_downloadtg(client, call):
     comicid = re.findall("book_id:(.*)", caption, re.S)[0]
     title = re.findall("title:(.*?)\n", caption, re.S)[0]
 
-    message_id = call.message.message_id
+    message_id = call.message.id
     message_chat_id = call.message.chat.id
 
     title = title.replace(" ", "").replace("\\", "").replace("/", "").replace("|", "").replace(" ", "")

@@ -14,7 +14,7 @@ session =requests.session()
 
 async def send_photo(client, message):
   print(message)
-  await client.delete_messages(chat_id=message.chat.id, message_ids=message.message_id)
+  await client.delete_messages(chat_id=message.chat.id, message_ids=message.id)
   new_inline_keyboard = [
             [
                 InlineKeyboardButton(

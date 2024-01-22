@@ -16,7 +16,7 @@ def progress(current, total, client, message, name):
     print(f"{current * 100 / total:.1f}%")
     pro = f"{current * 100 / total:.1f}%"
     try:
-        client.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text=f"{name}\n上传中:{pro}")
+        client.edit_message_text(chat_id=message.chat.id, message_id=message.id, text=f"{name}\n上传中:{pro}")
     except Exception as e:
         print("e")
 
@@ -88,7 +88,7 @@ class Download_video():
             if "video" in self.call.data:
                 run_rclone(dir=f"/{video_name}", title=video_name, info=self.info, file_num=1, client=self.client, message=self.info,gid=0)
                 os.remove(video_name)
-                self.client.delete_messages(chat_id=self.call.message.chat.id, message_ids=self.call.message.message_id)
+                self.client.delete_messages(chat_id=self.call.message.chat.id, message_ids=self.call.message.id)
             elif "mp3" in self.call.data:
                 tem, suffix = os.path.splitext(video_name)
                 print(tem, suffix)  # test   .py
@@ -99,7 +99,7 @@ class Download_video():
                 os.system(f"ffmpeg -i \"{video_name}\" -f mp3 -vn \"{audio_name}\"")
                 run_rclone(f"/{audio_name}", audio_name, info=self.info, file_num=1, client=self.client, message=self.info,gid=0)
                 os.remove(video_name)
-                self.client.delete_messages(chat_id=self.call.message.chat.id, message_ids=self.call.message.message_id)
+                self.client.delete_messages(chat_id=self.call.message.chat.id, message_ids=self.call.message.id)
                 os.remove(audio_name)
 
         else:
@@ -123,7 +123,7 @@ class Download_video():
                 os.remove(audio_name)
 
             os.remove(video_name)
-            self.client.delete_messages(chat_id=self.call.message.chat.id, message_ids=self.call.message.message_id)
+            self.client.delete_messages(chat_id=self.call.message.chat.id, message_ids=self.call.message.id)
 
 
 def get_video_info(client, message, url):
@@ -185,7 +185,7 @@ def get_video_info(client, message, url):
 
     ]
     img = requests.get(url=video_img)
-    img_name = f"{message.chat.id}{message.message_id}.png"
+    img_name = f"{message.chat.id}{message.id}.png"
     with open(img_name, 'wb') as f:
         f.write(img.content)
         f.close()

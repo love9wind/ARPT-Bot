@@ -169,7 +169,7 @@ def progress(current, total, client, message, name):
     print(f"{current * 100 / total:.1f}%")
     pro = f"{current * 100 / total:.1f}%"
     try:
-        client.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text=f"{name}\n下载中:{pro}")
+        client.edit_message_text(chat_id=message.chat.id, message_id=message.id, text=f"{name}\n下载中:{pro}")
     except:
         None
 
