@@ -34,7 +34,7 @@ RUN pip3 install --upgrade pip
 
 RUN sudo apt-get install gcc libffi-dev libssl-dev  -y
 
-RUN pip3 install -U "pyrogram==1.4" tgcrypto
+RUN pip3 install -U "pyrogram==2.0" tgcrypto
 #RUN pip3 install pillow
 RUN pip3 install telegraph
 RUN pip3 install aria2p
