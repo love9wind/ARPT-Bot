@@ -168,7 +168,7 @@ def http_downloadsong(client, message,url, file_name,picpath,towhere):
                     size += len(data)
                     if int(time.time())-int(temp) > 1:
                         text=f'{file_name}\n'+'[下载进度]:%.2f%%' % ( float(size / content_size * 100))
-                        client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+                        client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                                  parse_mode=enums.ParseMode.MARKDOWN)
                         temp = time.time()
 
@@ -177,7 +177,7 @@ def http_downloadsong(client, message,url, file_name,picpath,towhere):
         text = f'{file_name}\n' + f"大小:`{hum_convert(content_size)}`\n" + '[下载进度]:`%.2f%%`' % (
             float(size / content_size * 100))
 
-        client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+        client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                  parse_mode=enums.ParseMode.MARKDOWN)
     except:
         print('Error!')
@@ -236,13 +236,13 @@ def downloadplaylist(client, call):
         try:
             if song_info.json()['data'][0]['url'] == None:
                 client.edit_message_text(text=f"此歌曲不支持获取歌曲链接", chat_id=info.chat.id,
-                                         message_id=info.message_id,
+                                         message_id=info.id,
                                          parse_mode=enums.ParseMode.MARKDOWN)
                 continue
             url = song_info.json()['data'][0]['url']
         except Exception as e:
             client.edit_message_text(text=f"无法获取刚获取歌曲链接:\n`{e}`", chat_id=info.chat.id,
-                                         message_id=info.message_id,
+                                         message_id=info.id,
                                          parse_mode=enums.ParseMode.MARKDOWN)
             continue
 
@@ -254,13 +254,13 @@ def downloadplaylist(client, call):
 
         img_url = song_name_info.json()['songs'][0]['al']['picUrl']
         img = requests.get(url=img_url)
-        img_name = f"{info.chat.id}{info.message_id}.png"
+        img_name = f"{info.chat.id}{info.id}.png"
         with open(img_name, 'wb') as f:
             f.write(img.content)
             f.close()
         picpath = img_name
 
-        client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=f"{song_name}开始下载", parse_mode=enums.ParseMode.MARKDOWN)
+        client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=f"{song_name}开始下载", parse_mode=enums.ParseMode.MARKDOWN)
 
         try:
             start = time.time()  # 下载开始时间
@@ -280,13 +280,13 @@ def downloadplaylist(client, call):
                         size += len(data)
                         if int(time.time()) - int(temp) > 1:
                             text = f'{song_name}\n'+f"大小:`{hum_convert(content_size)}`\n" + '[下载进度]:`%.2f%%`' % (float(size / content_size * 100))
-                            client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+                            client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                                      parse_mode=enums.ParseMode.MARKDOWN)
                             temp = time.time()
 
             end = time.time()  # 下载结束时间
             text = f'{song_name}下载完成,times: %.2f秒' % (end - start)  # 输出下载用时时间
-            client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+            client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                      parse_mode=enums.ParseMode.MARKDOWN)
             if "tg" in str(call.data):
                 print("开始上传")
@@ -303,7 +303,7 @@ def downloadplaylist(client, call):
         except Exception as e:
             print(f'Error! {e}')
             client.edit_message_text(text=f'Error! `{e}`', chat_id=info.chat.id,
-                                         message_id=info.message_id,
+                                         message_id=info.id,
                                          parse_mode=enums.ParseMode.MARKDOWN)
             continue
 
@@ -413,7 +413,7 @@ async def get_song_list_info(client, message):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
 
-        await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+        await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                  parse_mode=enums.ParseMode.MARKDOWN, reply_markup=new_reply_markup)
 
 

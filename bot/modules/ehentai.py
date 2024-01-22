@@ -113,7 +113,7 @@ async def getWebsite(url, time1, spath,pagenum,client, info):
             print('下载成功: ' + new_title2 + str(page) + '.jpg')
             barop = progessbar(page, pagenum)
             text=f"下载进度:\n{barop}"
-            await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+            await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                            parse_mode=enums.ParseMode.MARKDOWN)
 
         except:
@@ -134,7 +134,7 @@ async def getWebsite(url, time1, spath,pagenum,client, info):
         last_time = "%d秒" % s
 
     text=f"下载完成:`{new_title2}`\n成功下载:`{str(page)}个文件`，耗时：`{last_time}`"
-    await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+    await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                    parse_mode=enums.ParseMode.MARKDOWN)
     filepath=spath + new_title2
     return filepath
@@ -169,13 +169,13 @@ async def single_download_call(client, call):
                 page = page + 1
         except Exception as e:
             print(f'错误,输入或网络问题:{e}')
-            await client.edit_message_text(text=f'错误,输入或网络问题:{e}', chat_id=info.chat.id, message_id=info.message_id,
+            await client.edit_message_text(text=f'错误,输入或网络问题:{e}', chat_id=info.chat.id, message_id=info.id,
                                            parse_mode=enums.ParseMode.MARKDOWN)
 
         else:
             print('本子名 ' + title + ',共 ' + str(page) + ' 页,开始爬取')
             text='本子名 ' + title + ',共 ' + str(page) + ' 页,开始爬取'
-            await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+            await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                            parse_mode=enums.ParseMode.MARKDOWN)
             rr = r"[\/\\\:\*\?\"\<\>\|]"
             new_title = re.sub(rr, "-", title)
@@ -194,11 +194,11 @@ async def single_download_call(client, call):
                 name = zip_ya(path)
                 print(name)
                 print("压缩完成，开始上传")
-                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 del_path(path)
             except Exception as e:
-                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 return
             try:
@@ -210,7 +210,7 @@ async def single_download_call(client, call):
             except Exception as e:
                 print(f"{e}")
                 sys.stdout.flush()
-                await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
             os.system("rm '" + name + "'")
             return
@@ -220,11 +220,11 @@ async def single_download_call(client, call):
                 name = zip_ya(path)
                 print(name)
                 print("压缩完成，开始上传")
-                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 del_path(path)
             except Exception as e:
-                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 return
             try:
@@ -236,7 +236,7 @@ async def single_download_call(client, call):
                 print(f"{e}")
                 sys.stdout.flush()
                 await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id,
-                                               message_id=info.message_id,
+                                               message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
             os.system("rm '" + name + "'")
 
@@ -245,15 +245,15 @@ async def single_download_call(client, call):
                 name = zip_ya(path)
                 print(name)
                 print("压缩完成，开始上传")
-                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 del_path(path)
             except Exception as e:
-                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 return
             try:
-                await client.delete_messages(info.chat.id, info.message_id)
+                await client.delete_messages(info.chat.id, info.id)
                 await run_await_rclone(dir=name, title=name, info=info, file_num=1, client=client, message=info,gid=0)
                 print("uploading")
             except Exception as e:
@@ -362,13 +362,13 @@ async def single_download(client, message):
                 page = page + 1
         except Exception as e:
             print(f'错误,输入或网络问题:{e}')
-            await client.edit_message_text(text=f'错误,输入或网络问题:{e}', chat_id=info.chat.id, message_id=info.message_id,
+            await client.edit_message_text(text=f'错误,输入或网络问题:{e}', chat_id=info.chat.id, message_id=info.id,
                                            parse_mode=enums.ParseMode.MARKDOWN)
 
         else:
             print('本子名 ' + title + ',共 ' + str(page) + ' 页,开始爬取')
             text='本子名 ' + title + ',共 ' + str(page) + ' 页,开始爬取'
-            await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+            await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                            parse_mode=enums.ParseMode.MARKDOWN)
             rr = r"[\/\\\:\*\?\"\<\>\|]"
             new_title = re.sub(rr, "-", title)
@@ -387,11 +387,11 @@ async def single_download(client, message):
                 name = zip_ya(path)
                 print(name)
                 print("压缩完成，开始上传")
-                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 del_path(path)
             except Exception as e:
-                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 return
             try:
@@ -403,7 +403,7 @@ async def single_download(client, message):
             except Exception as e:
                 print(f"{e}")
                 sys.stdout.flush()
-                await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
             os.system("rm '" + name + "'")
             return
@@ -413,11 +413,11 @@ async def single_download(client, message):
                 name = zip_ya(path)
                 print(name)
                 print("压缩完成，开始上传")
-                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 del_path(path)
             except Exception as e:
-                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 return
             try:
@@ -429,7 +429,7 @@ async def single_download(client, message):
                 print(f"{e}")
                 sys.stdout.flush()
                 await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id,
-                                               message_id=info.message_id,
+                                               message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
             os.system("rm '" + name + "'")
 
@@ -438,15 +438,15 @@ async def single_download(client, message):
                 name = zip_ya(path)
                 print(name)
                 print("压缩完成，开始上传")
-                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 del_path(path)
             except Exception as e:
-                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
+                await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.id,
                                                parse_mode=enums.ParseMode.MARKDOWN)
                 return
             try:
-                await client.delete_messages(info.chat.id, info.message_id)
+                await client.delete_messages(info.chat.id, info.id)
                 await run_await_rclone(dir=name, title=name, info=info, file_num=1, client=client, message=info,gid=0)
                 print("uploading")
             except Exception as e:

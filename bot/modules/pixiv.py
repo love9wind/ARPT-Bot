@@ -108,7 +108,7 @@ async def start_download_pixiv_top(client, call):
                        f"Number of errors:{img_er_num}\n" \
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                parse_mode="Markdown")
                 except:
                     None
@@ -143,7 +143,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -178,7 +178,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -214,7 +214,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -249,7 +249,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -284,7 +284,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -320,7 +320,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -356,7 +356,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -392,7 +392,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -428,7 +428,7 @@ async def start_download_pixiv_top(client, call):
                        f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
                 try:
-                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text,
+                    await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text,
                                                    parse_mode="Markdown")
                 except:
                     None
@@ -1074,7 +1074,7 @@ async def start_download_pixiv(client, call):
                  f"Number of errors:{img_er_num}\n" \
                  f"Progessbar:\n{progessbar(img_su_num,img_num)}"
 
-            await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text, parse_mode="Markdown")
+            await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text, parse_mode="Markdown")
         print("开始压缩")
         sys.stdout.flush()
         name = zip_ya(keywords)
@@ -1177,7 +1177,7 @@ async def start_download_pixivtg(client, call):
                f"Number of errors:{img_er_num}\n" \
                f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
-        await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text, parse_mode="Markdown")
+        await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text, parse_mode="Markdown")
     print("开始压缩")
     sys.stdout.flush()
     name = zip_ya(keywords)
@@ -1248,7 +1248,7 @@ async def start_download_pixivphoto(client, call):
                f"Number of errors:{img_er_num}\n" \
                f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
-        await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text, parse_mode="Markdown")
+        await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text, parse_mode="Markdown")
 
 
     try:
@@ -1358,7 +1358,7 @@ async def start_download_pixivtele(client, call):
                f"Number of errors:{img_er_num}\n" \
                f"Progessbar:\n{progessbar(img_su_num, img_num)}"
 
-        await client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=text, parse_mode="Markdown")
+        await client.edit_message_text(chat_id=info.chat.id, message_id=info.id, text=text, parse_mode="Markdown")
 
 
 

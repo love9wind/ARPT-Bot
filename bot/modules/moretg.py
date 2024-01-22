@@ -110,7 +110,7 @@ async def start_down_telegram_file(client, message,file_list):
 
 
         if info.media_group_id !=None:
-            media=await client.get_media_group(chat_id=info.chat.id,message_id=info.message_id)
+            media=await client.get_media_group(chat_id=info.chat.id,message_id=info.id)
             print(media)
             for a in media:
                 if not a.media:
@@ -140,7 +140,7 @@ async def start_down_telegram_file(client, message,file_list):
             try:
                 file_list.append(info)
 
-                temp_num = int(info.message_id)+1
+                temp_num = int(info.id)+1
                 while True:
                     try:
                         temp_info = await client.get_messages(chat_id=message.chat.id,message_ids=temp_num)

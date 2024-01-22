@@ -36,7 +36,7 @@ class Download_video():
                 # print(d)
                 text = "下载中 " + d['_percent_str'] + " " + d['_speed_str']
                 try:
-                    self.client.edit_message_text(text=text, chat_id=self.info.chat.id, message_id=self.info.message_id,
+                    self.client.edit_message_text(text=text, chat_id=self.info.chat.id, message_id=self.info.id,
                                                   parse_mode=enums.ParseMode.MARKDOWN)
                 except:
                     None
@@ -80,7 +80,7 @@ class Download_video():
             sys.stdout.flush()
             return
         self.client.edit_message_text(text=f"{video_name}\n下载完成，开始上传", chat_id=self.info.chat.id,
-                                      message_id=self.info.message_id,
+                                      message_id=self.info.id,
                                       parse_mode=enums.ParseMode.MARKDOWN)
         if "rclone" in self.call.data:
             print(f"{video_name}上传到网盘")
@@ -94,7 +94,7 @@ class Download_video():
                 tem, suffix = os.path.splitext(video_name)
                 print(tem, suffix)  # test   .py
                 self.client.edit_message_text(text=f"开始转码", chat_id=self.info.chat.id,
-                                              message_id=self.info.message_id,
+                                              message_id=self.info.id,
                                               parse_mode=enums.ParseMode.MARKDOWN)
                 audio_name = tem + ".mp3"
                 os.system(f"ffmpeg -i \"{video_name}\" -f mp3 -vn \"{audio_name}\"")
@@ -115,7 +115,7 @@ class Download_video():
                 tem, suffix = os.path.splitext(video_name)
                 print(tem, suffix)  # test   .py
                 self.client.edit_message_text(text=f"开始转码", chat_id=self.info.chat.id,
-                                              message_id=self.info.message_id,
+                                              message_id=self.info.id,
                                               parse_mode=enums.ParseMode.MARKDOWN)
                 audio_name = tem + ".mp3"
                 os.system(f"ffmpeg -i \"{video_name}\" -f mp3 -vn \"{audio_name}\"")

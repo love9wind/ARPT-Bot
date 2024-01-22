@@ -65,7 +65,7 @@ async def start_rclonecopy(client, message):
                        f"剩余时间:`{eta}`"
 
                 try:
-                    await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+                    await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                                    parse_mode='Markdown')
 
                 except:
@@ -140,7 +140,7 @@ async def start_rclonecopyurl(client, message):
 
 
                 try:
-                    await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
+                    await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.id,
                                              parse_mode='Markdown')
 
                 except:
