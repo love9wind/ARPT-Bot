@@ -385,7 +385,7 @@ def add_download(client,call):
                 download_process_text=f"当前下载话:{zhang}\n" \
                                       f"下载进度:{hua_down_num}/{benzihua_num}\n"
 
-                client.edit_message_text(text=download_process_text,chat_id=info.chat.id,message_id=info.message_id,parse_mode='markdown')
+                client.edit_message_text(text=download_process_text,chat_id=info.chat.id,message_id=info.message_id,parse_mode='Markdown')
 
                 #该循环下载单话
                 while True:
@@ -477,7 +477,7 @@ def add_downloadtg(client, call):
                                     f"下载进度:{hua_down_num}/{benzihua_num}\n"
 
             client.edit_message_text(text=download_process_text, chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='markdown')
+                                     parse_mode='Markdown')
 
             # 该循环下载单话
             while True:

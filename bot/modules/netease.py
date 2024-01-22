@@ -81,11 +81,11 @@ async def search_song_list(client, message):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_message(text=text, chat_id=message.chat.id,
-                                  parse_mode='markdown', reply_markup=new_reply_markup)
+                                  parse_mode='Markdown', reply_markup=new_reply_markup)
     except Exception as e:
         print(f"search_song_list error {e}")
         await client.send_message(text=f"搜索歌曲失败:·{e}·", chat_id=message.chat.id,
-                                  parse_mode='markdown')
+                                  parse_mode='Markdown')
 
 async def edit_song_info(client, call):
     message_id = call.message.id
@@ -119,13 +119,13 @@ async def edit_song_info(client, call):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_photo(caption=f"歌曲:`{song_name}`\n歌手:`{author}`", photo=str(song_img), chat_id=message_chat_id,
-                          parse_mode='markdown', reply_markup=new_reply_markup)
+                          parse_mode='Markdown', reply_markup=new_reply_markup)
 
     except Exception as e:
         print(f"edit_song_info error {e}")
         await client.edit_message_text(text=f"获取歌曲信息失败 {e}`", chat_id=message_chat_id,
                                  message_id=message_id,
-                                 parse_mode='markdown')
+                                 parse_mode='Markdown')
 
 def add_flac_cover(filename, albumart):
     audio = File(filename)
@@ -149,7 +149,7 @@ def http_downloadsong(client, message,url, file_name,picpath,towhere):
     path="/music/"
     if not os.path.exists(path):   # 看是否有该文件夹，没有则创建文件夹
          os.mkdir(path)
-    info = client.send_message(chat_id=message.chat.id, text="添加任务", parse_mode='markdown')
+    info = client.send_message(chat_id=message.chat.id, text="添加任务", parse_mode='Markdown')
     start = time.time()  # 下载开始时间
     response = requests.get(url, stream=True)
     size = 0  # 初始化已下载大小
@@ -168,7 +168,7 @@ def http_downloadsong(client, message,url, file_name,picpath,towhere):
                     if int(time.time())-int(temp) > 1:
                         text=f'{file_name}\n'+'[下载进度]:%.2f%%' % ( float(size / content_size * 100))
                         client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                                 parse_mode='markdown')
+                                                 parse_mode='Markdown')
                         temp = time.time()
 
 
@@ -177,7 +177,7 @@ def http_downloadsong(client, message,url, file_name,picpath,towhere):
             float(size / content_size * 100))
 
         client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                 parse_mode='markdown')
+                                 parse_mode='Markdown')
     except:
         print('Error!')
         return
@@ -207,7 +207,7 @@ def http_downloadsong(client, message,url, file_name,picpath,towhere):
     return None
 
 def downloadplaylist(client, call):
-    info =  client.send_message(chat_id=call.message.chat.id, text="开始下载", parse_mode='markdown')
+    info =  client.send_message(chat_id=call.message.chat.id, text="开始下载", parse_mode='Markdown')
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 5.8; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
@@ -236,13 +236,13 @@ def downloadplaylist(client, call):
             if song_info.json()['data'][0]['url'] == None:
                 client.edit_message_text(text=f"此歌曲不支持获取歌曲链接", chat_id=info.chat.id,
                                          message_id=info.message_id,
-                                         parse_mode='markdown')
+                                         parse_mode='Markdown')
                 continue
             url = song_info.json()['data'][0]['url']
         except Exception as e:
             client.edit_message_text(text=f"无法获取刚获取歌曲链接:\n`{e}`", chat_id=info.chat.id,
                                          message_id=info.message_id,
-                                         parse_mode='markdown')
+                                         parse_mode='Markdown')
             continue
 
         song_name_info_url = f"https://benchaonetease.vercel.app/song/detail?ids={song_id}"
@@ -259,7 +259,7 @@ def downloadplaylist(client, call):
             f.close()
         picpath = img_name
 
-        client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=f"{song_name}开始下载", parse_mode='markdown')
+        client.edit_message_text(chat_id=info.chat.id, message_id=info.message_id, text=f"{song_name}开始下载", parse_mode='Markdown')
 
         try:
             start = time.time()  # 下载开始时间
@@ -280,13 +280,13 @@ def downloadplaylist(client, call):
                         if int(time.time()) - int(temp) > 1:
                             text = f'{song_name}\n'+f"大小:`{hum_convert(content_size)}`\n" + '[下载进度]:`%.2f%%`' % (float(size / content_size * 100))
                             client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                                     parse_mode='markdown')
+                                                     parse_mode='Markdown')
                             temp = time.time()
 
             end = time.time()  # 下载结束时间
             text = f'{song_name}下载完成,times: %.2f秒' % (end - start)  # 输出下载用时时间
             client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='markdown')
+                                     parse_mode='Markdown')
             if "tg" in str(call.data):
                 print("开始上传")
 
@@ -303,14 +303,14 @@ def downloadplaylist(client, call):
             print(f'Error! {e}')
             client.edit_message_text(text=f'Error! `{e}`', chat_id=info.chat.id,
                                          message_id=info.message_id,
-                                         parse_mode='markdown')
+                                         parse_mode='Markdown')
             continue
 
     if "rclone" in str(call.data):
         run_rclone(path, f"歌单{playlist}", info=info, file_num=2, client=client, message=info,gid=0)
         os.system(f"rm -rf \"{path}\"")
     if "tg" in str(call.data):
-        client.send_message(chat_id=call.message.chat.id, text="上传结束", parse_mode='markdown')
+        client.send_message(chat_id=call.message.chat.id, text="上传结束", parse_mode='Markdown')
 
 
 async def get_song_info(client, message):
@@ -342,19 +342,19 @@ async def get_song_info(client, message):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_photo(caption=f"歌曲:`{song_name}`\n歌手:`{author}`", photo=str(song_img), chat_id=message.chat.id,
-                                parse_mode='markdown', reply_markup=new_reply_markup)
+                                parse_mode='Markdown', reply_markup=new_reply_markup)
 
     except Exception as e:
         print(f"get_song_info error {e}")
         await client.edit_message_text(text=f"获取歌曲信息失败 {e}`", chat_id=message.chat.id,
                                  message_id=message.id,
-                                 parse_mode='markdown')
+                                 parse_mode='Markdown')
 
 
 
 async def get_song_list_info(client, message):
     try:
-        info =await client.send_message(chat_id=message.chat.id, text="开始获取歌单信息", parse_mode='markdown')
+        info =await client.send_message(chat_id=message.chat.id, text="开始获取歌单信息", parse_mode='Markdown')
 
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 5.8; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
@@ -413,7 +413,7 @@ async def get_song_list_info(client, message):
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
 
         await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                 parse_mode='markdown', reply_markup=new_reply_markup)
+                                 parse_mode='Markdown', reply_markup=new_reply_markup)
 
 
 
@@ -421,4 +421,4 @@ async def get_song_list_info(client, message):
         print(f"get_song_info error {e}")
         await client.send_message(text=f"获取歌单信息失败 {e}`", chat_id=message.chat.id,
                                  message_id=message.id,
-                                 parse_mode='markdown')
+                                 parse_mode='Markdown')

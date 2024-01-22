@@ -60,7 +60,7 @@ async def download_nhentai_id_call(client, call):
         nhentai_id_temp= call.data.split(" ")[1]
         nhentai_id=re.findall(r"\d+\.?\d*", nhentai_id_temp)[0]
         info = await client.send_message(text="获取到ID，正在下载", chat_id=message.chat.id,
-                            parse_mode='markdown' )
+                            parse_mode='Markdown' )
         shell = f"nhentai --id={nhentai_id} --format \'%t\'"
         print(shell)
         cmd = subprocess.Popen(shell, stdin=subprocess.PIPE, stderr=sys.stderr, close_fds=True, stdout=subprocess.PIPE,
@@ -79,11 +79,11 @@ async def download_nhentai_id_call(client, call):
             path = re.findall("Path \'(.*?)\' does not exist, creating", result, re.S)[0]
             print(f"下载路径:{path}")
             await client.edit_message_text(text=f"下载成功,下载路径:\n{path}", chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='markdown')
+                                     parse_mode='Markdown')
         else:
             print("下载失败")
             await client.edit_message_text(text="下载失败", chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='markdown')
+                                     parse_mode='Markdown')
             return
         try:
             choice = call.data.split(" ")[2]
@@ -95,11 +95,11 @@ async def download_nhentai_id_call(client, call):
                 print(name)
                 print("压缩完成，开始上传")
                 await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 del_path(path)
             except Exception as e:
                 await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 return
             try:
                 await client.send_document(chat_id=info.chat.id, document=name, caption=name, progress=progress,
@@ -111,7 +111,7 @@ async def download_nhentai_id_call(client, call):
                 print(f"{e}")
                 sys.stdout.flush()
                 await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
             os.system("rm '" + name + "'")
             return
 
@@ -121,11 +121,11 @@ async def download_nhentai_id_call(client, call):
                 print(name)
                 print("压缩完成，开始上传")
                 await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 del_path(path)
             except Exception as e:
                 await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 return
             try:
                 await client.send_document(chat_id=info.chat.id, document=name, caption=name, progress=progress,
@@ -137,7 +137,7 @@ async def download_nhentai_id_call(client, call):
                 sys.stdout.flush()
                 await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id,
                                                message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
             os.system("rm '" + name + "'")
 
         elif choice=="rclone":
@@ -146,11 +146,11 @@ async def download_nhentai_id_call(client, call):
                 print(name)
 
                 await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 del_path(path)
             except Exception as e:
                 await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 return
             try:
                 await client.delete_messages(info.chat.id, info.message_id)
@@ -235,7 +235,7 @@ async def download_nhentai_id_call(client, call):
     except Exception as e :
         print(f"download_hentai_id error : {e}")
         await client.send_message(text=f"download_hentai_id error : {e}", chat_id=message.chat.id,
-                            parse_mode='markdown')
+                            parse_mode='Markdown')
 
 async def download_nhentai_id(client, message):
     try:
@@ -245,7 +245,7 @@ async def download_nhentai_id(client, message):
             nhentai_id = re.findall(r"\d+\.?\d*", nhentai_id_temp)[0]
         else:
             nhentai_id=nhentai_id_temp
-        info = await client.send_message(text="获取到ID，正在下载", chat_id=message.chat.id,parse_mode='markdown' )
+        info = await client.send_message(text="获取到ID，正在下载", chat_id=message.chat.id,parse_mode='Markdown' )
         shell = f"nhentai --id={nhentai_id} --format \'%t\'"
         print(shell)
         cmd = subprocess.Popen(shell, stdin=subprocess.PIPE, stderr=sys.stderr, close_fds=True, stdout=subprocess.PIPE,
@@ -265,13 +265,13 @@ async def download_nhentai_id(client, message):
             print(f"下载路径:{path}")
             try:
                 await client.edit_message_text(text=f"下载成功,下载路径:\n{path}", chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='markdown')
+                                     parse_mode='Markdown')
             except:
                 None
         else:
             print("下载失败")
             await client.edit_message_text(text="下载失败", chat_id=info.chat.id, message_id=info.message_id,
-                                     parse_mode='markdown')
+                                     parse_mode='Markdown')
             return
         try:
             print("开始获取参数")
@@ -287,11 +287,11 @@ async def download_nhentai_id(client, message):
 
                 time.sleep(1)
                 await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 del_path(path)
             except Exception as e:
                 await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 return
             try:
                 await client.send_document(chat_id=info.chat.id, document=name, caption=name, progress=progress,
@@ -303,7 +303,7 @@ async def download_nhentai_id(client, message):
                 print(f"{e}")
                 sys.stdout.flush()
                 await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
             os.system("rm '" + name + "'")
             return
 
@@ -313,11 +313,11 @@ async def download_nhentai_id(client, message):
                 print(name)
                 print("压缩完成，开始上传")
                 await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 del_path(path)
             except Exception as e:
                 await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 return
             try:
                 await client.send_document(chat_id=info.chat.id, document=name, caption=name, progress=progress,
@@ -329,7 +329,7 @@ async def download_nhentai_id(client, message):
                 sys.stdout.flush()
                 await client.edit_message_text(text=f"文件上传失败 : {e}", chat_id=info.chat.id,
                                                message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
             os.system("rm '" + name + "'")
 
         elif choice=="rclone":
@@ -338,11 +338,11 @@ async def download_nhentai_id(client, message):
                 print(name)
                 print("压缩完成，开始上传")
                 await client.edit_message_text(text="压缩完成，开始上传", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 del_path(path)
             except Exception as e:
                 await client.edit_message_text(text=f"压缩失败 : {e}", chat_id=info.chat.id, message_id=info.message_id,
-                                               parse_mode='markdown')
+                                               parse_mode='Markdown')
                 return
             try:
                 await client.delete_messages(chat_id=info.chat.id, message_ids=info.message_id)
@@ -428,7 +428,7 @@ async def download_nhentai_id(client, message):
     except Exception as e :
         print(f"download_hentai_id error : {e}")
         await client.send_message(text=f"download_hentai_id error : {e}", chat_id=message.chat.id,
-                            parse_mode='markdown')
+                            parse_mode='Markdown')
 
 
 async def get_search_nhentai_info(client, message):
@@ -450,7 +450,7 @@ async def get_search_nhentai_info(client, message):
 
     link_temp_list = lxml_result.xpath('//*[@id="content"]/div[2]/div/a/@href')
     if len(title_list)==0:
-        await client.send_message(chat_id=message.chat.id, text="搜索无结果", parse_mode='markdown')
+        await client.send_message(chat_id=message.chat.id, text="搜索无结果", parse_mode='Markdown')
         return
     link_list=[]
     for a in link_temp_list:
@@ -480,4 +480,4 @@ async def get_search_nhentai_info(client, message):
 
         new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
         await client.send_photo(chat_id=message.chat.id, photo=str(img), caption=text, reply_markup=new_reply_markup,
-                                parse_mode='markdown')
+                                parse_mode='Markdown')

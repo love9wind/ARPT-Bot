@@ -48,7 +48,7 @@ async def send_photo(client, message):
 
   new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
   await client.send_photo(caption=f"请选择搜索引擎", photo=message.photo.file_id, chat_id=message.chat.id,
-                    parse_mode='markdown', reply_markup=new_reply_markup)
+                    parse_mode='Markdown', reply_markup=new_reply_markup)
 
 
 
@@ -121,7 +121,7 @@ def saucenao(client, message):
 
                 new_reply_markup = InlineKeyboardMarkup(inline_keyboard=new_inline_keyboard)
 
-                client.send_photo(chat_id=message.message.chat.id,photo=img,reply_markup=new_reply_markup,parse_mode='markdown',caption=text)
+                client.send_photo(chat_id=message.message.chat.id,photo=img,reply_markup=new_reply_markup,parse_mode='Markdown',caption=text)
             except Exception as e:
                 print(e)
                 continue
@@ -233,7 +233,7 @@ def anime(client, message):
                 f"您本月的搜索配额:`{me['quota']}`\n" \
                 f"您本月使用的搜索配额:`{me['quotaUsed']}`"
 
-        client.send_message(chat_id=message.message.chat.id, text=me_info,parse_mode='markdown')
+        client.send_message(chat_id=message.message.chat.id, text=me_info,parse_mode='Markdown')
         os.remove(file)
     except Exception as e:
         print(f"anime faild:{e}")
@@ -281,7 +281,7 @@ def iqdb(client, message):
             except:
                 None
 
-        client.send_message(chat_id=message.message.chat.id, text="搜索完成", parse_mode="markdown")
+        client.send_message(chat_id=message.message.chat.id, text="搜索完成", parse_mode="Markdown")
         os.remove(file)
 
     except Exception as e:

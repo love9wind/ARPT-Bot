@@ -27,7 +27,7 @@ async def start_rclonecopy(client, message):
         print(f"rclone {firstdir} {seconddir}")
         sys.stdout.flush()
         rc_url = f"http://root:{Aria2_secret}@127.0.0.1:5572"
-        info = await client.send_message(chat_id=message.chat.id, text=f"添加任务:", parse_mode='markdown')
+        info = await client.send_message(chat_id=message.chat.id, text=f"添加任务:", parse_mode='Markdown')
 
         rcd_copyfile_url = f"{rc_url}/sync/copy"
 
@@ -66,7 +66,7 @@ async def start_rclonecopy(client, message):
 
                 try:
                     await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                                   parse_mode='markdown')
+                                                   parse_mode='Markdown')
 
                 except:
                     continue
@@ -97,7 +97,7 @@ async def start_rclonecopyurl(client, message):
         Rclone_remote = os.environ.get('Remote')
         Upload = os.environ.get('Upload')
         title = os.path.basename(url)
-        info = await client.send_message(chat_id=message.chat.id, text=f"添加任务:`{title}`", parse_mode='markdown')
+        info = await client.send_message(chat_id=message.chat.id, text=f"添加任务:`{title}`", parse_mode='Markdown')
 
         rcd_copyfile_url = f"{rc_url}/operations/copyurl"
 
@@ -141,7 +141,7 @@ async def start_rclonecopyurl(client, message):
 
                 try:
                     await client.edit_message_text(text=text, chat_id=info.chat.id, message_id=info.message_id,
-                                             parse_mode='markdown')
+                                             parse_mode='Markdown')
 
                 except:
                     continue
@@ -166,7 +166,7 @@ async def start_rclonelsd(client, message):
         print(out)
         i = str(out,encoding='utf-8').replace("          ","")
         print(i)
-        await client.send_message(chat_id=message.chat.id,text=f"`{str(i)}`",parse_mode='markdown')
+        await client.send_message(chat_id=message.chat.id,text=f"`{str(i)}`",parse_mode='Markdown')
     except Exception as e:
         print(f"rclonelsd :{e}")
         sys.stdout.flush()
@@ -190,7 +190,7 @@ async def start_rclonels(client, message):
             print(new)
             filetime=str(new['ModTime']).replace("T"," ").replace("Z"," ")
             text=text+f"{filetime}--{new['Name']}\n"
-        await client.send_message(chat_id=message.chat.id,text=f"`{text}`",parse_mode='markdown')
+        await client.send_message(chat_id=message.chat.id,text=f"`{text}`",parse_mode='Markdown')
     except Exception as e:
         print(f"rclone :{e}")
         sys.stdout.flush()
