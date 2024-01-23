@@ -44,4 +44,4 @@ jobs:
           --platform=linux/amd64 \
           --output "type=image,push=true" \
           --file ./Dockerfile . \
-          --tag Hiyus/arpt:${{ env.RELEASE_VERSION }}
+          --tag suyih/arpt:${{ env.RELEASE_VERSION }}
