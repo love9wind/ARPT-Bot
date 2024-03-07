@@ -5,7 +5,7 @@
  * @LastEditTime: 2021-11-10 21:16:31
    -->
 
-[![GitHub Stars](https://img.shields.io/github/stars/666wcy/ARPT-Bot.svg?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/linuxserver/docker-qbittorrent) [![Docker Pulls](https://img.shields.io/docker/pulls/benchao/arpt.svg?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/repository/docker/benchao/arpt) [![GitHub Release](https://img.shields.io/docker/v/benchao/arpt?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=最新版本&logo=docker)](https://github.com/linuxserver/docker-qbittorrent/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/love9wind/ARPT-Bot.svg?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/linuxserver/docker-qbittorrent) [![Docker Pulls](https://img.shields.io/docker/pulls/love9wind/arpt.svg?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/repository/docker/love9wind/arpt) [![GitHub Release](https://img.shields.io/docker/v/love9wind/arpt?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=最新版本&logo=docker)](https://github.com/linuxserver/docker-qbittorrent/releases)
 
 # 更新说明
 
@@ -32,7 +32,7 @@ v2.0.9
 
 修复odprivate命令失效(与后续指令冲突导致失效) [#17](https://github.com/666wcy/ARPT-Bot/issues/17)
 
-修复默认面板账号密码为默认，存在安全隐患，修改为账号：`admin`，密码:你设置的`Aria2_secret`的值
+修复默认面板账号密码为默认，存在安全隐患，修改为账号：`admin`，密码: `admin` ~~你设置的`Aria2_secret`的值~~
 
 
 
