@@ -8,6 +8,15 @@
 [![GitHub Stars](https://img.shields.io/github/stars/love9wind/ARPT-Bot.svg?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/linuxserver/docker-qbittorrent) [![Docker Pulls](https://img.shields.io/docker/pulls/love9wind/arpt.svg?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/repository/docker/love9wind/arpt) [![GitHub Release](https://img.shields.io/docker/v/love9wind/arpt?color=inactived&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=最新版本&logo=docker)](https://github.com/linuxserver/docker-qbittorrent/releases)
 
 # 更新说明
+v2.1.2
+Fork Hiyus/ARPT-Bot
+添加ARM镜像
+修改README.md
+
+v2.1.1 by @Hiyus
+
+修复已有错误
+只保留AMD镜像
 
 v2.1.0
 
@@ -154,7 +163,7 @@ v1.1.4
 主要功能:
 
 - [x] 文件管理
-  - [x] 修改主界面为 [filebrowser](https://github.com/filebrowser/filebrowser)，账号为**admin**，密码为你设定的`Aria2_secret`,主界面路径：http://ip:port,请自行修改密码
+  - [x] 修改主界面为 [filebrowser](https://github.com/filebrowser/filebrowser)，账号为**admin**，密码为 `admin` ~~你设定的`Aria2_secret`~~，主界面路径：http://ip:port,请自行修改密码
 
 - [x] 网页面板
   - [x] 支持 [AriaNg](https://github.com/mayswind/AriaNg) 面板,地址为：https://ip:port/ng/
