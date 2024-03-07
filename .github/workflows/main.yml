@@ -12,7 +12,7 @@ on:
 
 
     #branches: [ master ]
-  #pull_request:
+    #pull_request:
     #branches: [ master ]
 
 jobs:
@@ -41,8 +41,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
           docker buildx build \
-          #添加ARM镜像
           --platform=linux/amd64,linux/arm/v7,linux/arm64 \
           --output "type=image,push=true" \
           --file ./Dockerfile . \
-          --tag suyih/arpt:${{ env.RELEASE_VERSION }}
+          --tag love9wind/arpt:${{ env.RELEASE_VERSION }}
